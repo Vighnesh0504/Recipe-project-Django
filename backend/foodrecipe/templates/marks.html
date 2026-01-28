@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Name : {{marks.0.student.student_name}}</h3>
+<h3>Depatment : {{marks.0.student.department.department}}</h3>
+{% if report %}
+    <h3>Rank: {{ report.rank }}</h3>
+{% else %}
+    <h3>Rank: Not Generated Yet</h3>
+{% endif %}
+
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">subject</th>
+      <th scope="col">Marks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for mark in marks %}
+    <tr>
+      <td style="font-weight: bold">{{forloop.counter}}</td>
+      <td style="font-weight: bold">{{mark.Subject.subject_name}}</td>
+      <td style="font-weight: bold">{{mark.marks}}</td>
+
+    </tr>
+  {% endfor %}
+  <h4>totalmarks : {{totalmarks.marks__sum}}</h4>
+  </tbody>
+</table>
+
+{% endblock %}

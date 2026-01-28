@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <form method="GET" class="col-6 mx-auto card p-3 shadow-lg">
+
+    <input type="search" class="form-control" name="search" placeholder="search student details here..">
+
+    <button type="submit" class="btn btn-primary mt-3">search</button>
+  </form>
+</div>
+<table class="table mt-5">
+  <thead>
+    <tr>
+        <th scope="col">index</th>
+      <th scope="col">Student_id</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">department</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for student in students %}
+    <tr>
+      <th scope="row" style="font-weight: bold">{{forloop.counter}}</th>
+      <td style="font-weight: bold"><a href="{% url 'getmarks' student.student_id %}"> {{student.student_id}}</a></td>
+      <td>{{studentstudent_name}}</td>
+      <td>{{student.student_age}}</td>
+      <td>{{student.department.department}}</td>
+        <td>{{student.student_email}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+
+    {% if students.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1" aria-label="First">
+          <span aria-hidden="true">&laquo;&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ students.previous_page_number }}{% if search_result %}&search={{ search_result }}{% endif %}">Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+      <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    <li class="page-item active">
+      <span class="page-link">
+        Page {{ students.number }} of {{ students.paginator.num_pages }}
+      </span>
+    </li>
+
+    {% if students.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ students.next_page_number }}{% if search_result %}&search={{ search_result }}{% endif %}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ students.paginator.num_pages }}" aria-label="Last">
+          <span aria-hidden="true">&raquo;&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+      <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+    {% endif %}
+
+  </ul>
+</nav>
+
+{% endblock %}

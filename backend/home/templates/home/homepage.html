@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1> This is a Home Page</h1>
+<table class="table table-dark table-hover">
+  <tr>
+    <th>SR.NO</th>
+    <th>Name</th>
+    <th>AGE</th>
+    <th>18+</th>
+  </tr>
+  {% for people in peoples %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{people.name}}</td>
+    <td>{{people.age}}</td>
+    {% if people.age >= 18 %}
+    <td>👍</td>
+    {% else %}
+    <td style="background-color: orangered">👎</td>
+    {% endif %}
+  </tr>
+      {% endfor %}
+</table>
+
+<a href="/contact/">contact</a>
+|
+<a href="/about/">About</a>
+{%  endblock %}}
